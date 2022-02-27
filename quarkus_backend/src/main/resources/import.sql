@@ -1,0 +1,1 @@
+INSERT INTO user(id, firstName,lastName,phone,email,`password`) VALUES (nextval('hibernate_sequence'), 'Abhi','Sagar','888888888','s@g.com','99999');
