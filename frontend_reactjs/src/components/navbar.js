@@ -6,10 +6,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Button } from "@mui/material";
 import Link from '@material-ui/core/Link';
 import { createBrowserHistory } from 'history';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const history = createBrowserHistory();
 const btnstyle = { padding: 10, marginLeft: 30, backgroundColor: "blue", color:"white" }
-const Navbar = ({ setShow, size, luser, logoutHandler }) => {
+const Navbar = ({ setShow, size,fcount, setFavShow, luser, logoutHandler }) => {
   
   return (
     <nav>
@@ -25,6 +26,12 @@ const Navbar = ({ setShow, size, luser, logoutHandler }) => {
           <span>
          
           </span>
+           </div>
+           <div className="fav" onClick={()=> setFavShow(true)}>
+             <span>
+             <FavoriteBorderIcon/>
+             </span>
+             <span>{fcount}</span>
            </div>
            { luser?
           <Button onClick={logoutHandler} style={btnstyle}>

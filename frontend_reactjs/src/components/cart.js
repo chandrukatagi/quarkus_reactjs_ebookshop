@@ -2,9 +2,20 @@ import React, { useState, useEffect } from "react";
 import "../styles/cart.css";
 import Button from '@mui/material/Button';
 
-const Cart = ({ cart, setCart, handleChange }) => {
+const Cart = ({ cart,setFavShow, setShow, setCart, handleChange }) => {
   const [price, setPrice] = useState(0);
-
+  const style1={    width: "max-content",
+    float: "right",};
+    const style2={    padding: 10,
+    float: "right",
+  backgroundColor:"blue",
+  color:"white",
+};
+const handlePlaceOrder = () => {
+setCart([]);
+setShow(true);
+setFavShow(false);
+}
   const handleRemove = (id) => {
     const arr = cart.filter((item) => item.id !== id);
     setCart(arr);
@@ -43,7 +54,18 @@ const Cart = ({ cart, setCart, handleChange }) => {
       <div className="total">
         <span>Total Price of your Cart</span>
         <span>Rs - {price}</span>
+        
       </div>
+      <div style={style1}>
+        <div>
+      <span>Shipping Address:</span>
+      </div>
+      <div>
+        <textarea></textarea>
+        </div>
+        <Button style={style2} onClick={() => handlePlaceOrder()}>Place Order</Button>
+      </div>
+
     </article>
   );
 };

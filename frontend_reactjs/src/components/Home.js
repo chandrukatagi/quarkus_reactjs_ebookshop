@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Book from "./book";
 import Navbar from "./navbar";
 import Cart from "./cart";
+import Fav from "./fav";
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
@@ -9,13 +10,20 @@ const history = createBrowserHistory();
 
 const Home = () => {
   const [show, setShow] = useState(true);
+  const [fshow, setFavShow] = useState(false);
   const [cart, setCart] = useState([]);
+  const [favlist, setFavList] = useState([]);
   const [luser, setUser] = useState(false);
   
   const handleClick = (item) => {
     if (cart.indexOf(item) !== -1) return;
     setCart([...cart, item]);
   };
+  const handleFavClick = (item) => {
+    if (favlist.indexOf(item) !== -1) return;
+    setFavList([...favlist, item]);
+  };
+
   const logoutHandler = (event) => {
     console.log("Logout");
     setShow(true);
@@ -64,11 +72,11 @@ const Home = () => {
 
   return (
     <React.Fragment>
-      <Navbar setShow={setShow} size={cart.length} luser={luser} logoutHandler={logoutHandler} />
-      {show ? (
-        <Book cart={cart} setCart={setCart} handleClick={handleClick} />
+      <Navbar setShow={setShow} size={cart.length} fcount={favlist.length} setFavShow={setFavShow} luser={luser} logoutHandler={logoutHandler} />
+      {fshow?<Fav favlist={favlist} setFavList={setFavList} handleClick={handleClick}/>:show ? (
+        <Book cart={cart} favlist={favlist} setFavList={setFavList} setCart={setCart} handleClick={handleClick} />
       ) : (
-        <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
+        <Cart cart={cart} setShow={setShow} setFavShow={setFavShow} setCart={setCart} handleChange={handleChange} />
       )}
     </React.Fragment>
     

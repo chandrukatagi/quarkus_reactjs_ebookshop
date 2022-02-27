@@ -9,7 +9,7 @@ import Cart from "./cart";
 
 
 
-const Cards = ({ item,cart, setCart, handleClick }) => {
+const Cards = ({ item,cart, setCart, setFavList, favlist, handleClick }) => {
   const { title, author, price, img } = item;
   const [fav, setFav] = useState(false);
 
@@ -17,6 +17,16 @@ const Cards = ({ item,cart, setCart, handleClick }) => {
     if (cart.indexOf(item) !== -1) return;
     setCart([...cart, item]);
   };
+
+  const handleAddtoFav = (item) => {
+    if (favlist.indexOf(item) !== -1) return;
+    setFavList([...favlist, item]);
+  };
+  const handleRemoveFromFav = (id) => {
+    const arr = favlist.filter((item) => item.id !== id);
+    setFavList(arr);
+  };
+
 
   return (
     <div className="cards">
@@ -30,12 +40,12 @@ const Cards = ({ item,cart, setCart, handleClick }) => {
         <Button onClick={() => handleAddtoCart(item)}>Add to Cart</Button>
         {/* <Button size='small'><FavoriteBorderIcon /></Button> */}
         {fav &&
-          <IconButton onClick={() => { setFav(!fav) }} aria-label="delete" color="primary">
+          <IconButton onClick={() => { setFav(!fav); handleAddtoFav(item); }} aria-label="delete" color="primary">
             <FavoriteBorderIcon></FavoriteBorderIcon>
           </IconButton>
         }
         {!fav &&
-          <IconButton onClick={() => { setFav(!fav) }} aria-label="delete" color="primary">
+          <IconButton onClick={() => { setFav(!fav); handleRemoveFromFav(item.id); }} aria-label="delete" color="primary">
             <Favorite></Favorite>
           </IconButton>
         }
